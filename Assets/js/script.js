@@ -46,23 +46,8 @@ let question5 = {
 
 let questionBank = [question1, question2, question3, question4, question5]
 
-// timer
-let timeEl = document.querySelector(".timer");
-let secondsLeft = 90;
-
-function countDown() {
-    let timeInterval = setInterval(function() {
-        secondsLeft--;
-        timeEl.textContent = `${secondsLeft} seconds left`;
-
-        if (secondsLeft === 0) {
-            clearInterval(timeInterval);
-            timeEl.textContent = "OUT OF TIME";
-        }
-    }, 1000);
-}
-
-// start quiz
+// html elements
+let bannerHead = document.querySelector("#ui-heading");
 let startButton = document.querySelector("#ui-button");
 let questionText = document.querySelector("#ui-text");
 let questionChoicesBody = document.querySelector("ul")
@@ -71,11 +56,37 @@ let qChoice1 = document.querySelector("#qChoice1");
 let qChoice2 = document.querySelector("#qChoice2");
 let qChoice3 = document.querySelector("#qChoice3");
 let qChoice4 = document.querySelector("#qChoice4");
+// form elements
+let uiForm = document.querySelector("#ui-form");
+let playerInitials = document.querySelector("#playerInitials");
+let sumbitButton = document.querySelector("#sumbitInitials");
+// display highscores
+let highScoreList = localStorage.getItem("highScoreList");
+let displayScore = document.querySelector(".view-score");
 
+// quiz
 function codeQuiz () {
-    countDown();
+    // timer
+    let timeEl = document.querySelector(".timer");
+    let secondsLeft = 90;
+
+    function countDown() {
+        let timeInterval = setInterval(function() {
+            secondsLeft--;
+            timeEl.textContent = `${secondsLeft} seconds left`;
+
+            if ((secondsLeft === 0) || (i === questionBank.length)) {
+                clearInterval(timeInterval);
+                timeEl.textContent = "TIME'S UP!";
+            }
+        }, 1000);
+    }
+    
+
+    // quiz logic
     let questionsCorrect = 0;
     let i = 0
+    countDown();
     startButton.style.visibility = "hidden";
 
     function populateQuestion() {
@@ -84,6 +95,7 @@ function codeQuiz () {
         qChoice2.textContent = questionBank[i].choice2
         qChoice3.textContent = questionBank[i].choice3
         qChoice4.textContent = questionBank[i].choice4
+
     }
 
     populateQuestion();
@@ -92,47 +104,79 @@ function codeQuiz () {
         questionChoices[x].style.display = "list-item";
     }
 
+    function codeEndScreen() {
+        if (i === questionBank.length) {
+            for (let x = 0; x < questionChoices.length; x++) {
+                questionChoices[x].style.display = "none";
+            }
+
+            let largeText = document.createElement("h2")
+            questionText.textContent = "Congrats! ALL DONE!"
+            largeText.textContent = "Record your score below!"
+            questionText.append(largeText);
+
+            uiForm.style.visibility = "visible";
+        }
+    }
+
     questionChoicesBody.addEventListener("click", function(event) {
         event.stopPropagation();
         console.log(event.target)
         if (event.target.textContent === questionBank[i].correctAnswer) {
-            // event.target.classList.add("correct");
-            // event.target.textContent = "CORRECT!";
             questionsCorrect++
-            i++
-            populateQuestion();
-        } 
+            if (i < (questionBank.length - 1)) {
+                i++
+                populateQuestion();
+            }
+            else {
+                i++
+                codeEndScreen()
+            }
+        }
+
         else {
-            // event.target.classList.add("wrong");
-            // event.target.textContent = "Wrong!";
             secondsLeft = secondsLeft - 10;
-            i++
-            populateQuestion();
+            if (i < (questionBank.length - 1)) {
+                i++
+                populateQuestion();
+            }
+            else {
+                i++     
+                codeEndScreen()
+            }
         }
     });
 
-    if (i === questionBank.length) {
-        for (let x = 0; x < questionChoices.length; x++) {
-            questionChoices[x].style.display = "none";
-        }
-        // create heading and append to p
-        questionText.textContent = "ALL DONE!"
+    // eventlistener for clicking sumbit high score button
+    sumbitButton.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    }
+        uiForm.style.display = "none";
+
+        // consolidate scores
+        let  highScoreEntry = {
+            initials: playerInitials.value,
+            timeLeft: secondsLeft,
+            answerRatio: `${questionsCorrect} out 5`,
+        }
+        
+        localStorage.setItem("highScoreList", JSON.stringify(highScoreEntry));
+        highScorePage()
+    });
 }
 
-// eventlistener for quiz
-startButton.addEventListener("click", codeQuiz);
+// highscore page
+function highScorePage () {
+    bannerHead.textContent = "High Score Page";
 
-// display highscores
-let highScoreList = localStorage.getItem("highScoreList");
-let displayScore = document.querySelector(".view-score");
+    lastHighScore = JSON.parse(localStorage.getItem("highScoreList"))
 
+    // scoreEl = document.createElement("")
+    questionText.innerHTML = `<b>Last time:</b> ${lastHighScore.initials} got ${lastHighScore.answerRatio} with ${lastHighScore.timeLeft} seconds left.`
+}
 
-
-// clicking highscore button
+// eventlistener for clicking highscore page button
 displayScore.addEventListener("click", highScorePage);
 
-function highScorePage () {
-
-}
+// eventlistener for quiz start
+startButton.addEventListener("click", codeQuiz);

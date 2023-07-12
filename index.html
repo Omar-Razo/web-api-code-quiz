@@ -20,7 +20,7 @@
 
     <main class="flex-container ui-content">
         <div class="flex-item ui-head">
-            <h2>Coding Quiz Challenge</h2>
+            <h2 id="ui-heading">Coding Quiz Challenge</h2>
         </div>
 
         <div class="flex-container flex-item ui-body">
@@ -31,7 +31,14 @@
                 <li class="ui-choices" id="qChoice3"></li>
                 <li class="ui-choices" id="qChoice4"></li>
             </ul>
-            <button class="flex-item" id="ui-button">Start?</button>
+            <!-- form -->
+            <form class="flex-container" id="ui-form">
+                <label for="playerInitials" class="flex-item">Initials</label>
+                <input type="text" class="flex-item" id="playerInitials" name="playerInitials" placeholder="e.g. O.R or OSR" maxlength="3">
+                <button class="flex-item" id="sumbitInitials">Sumbit</button>
+            </form>
+            <!-- form -->
+            <button class="flex-item" id="ui-button">Start Quiz?</button>
         </div>
     </main>
     <script src="./assets/js/script.js"></script>

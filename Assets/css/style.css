@@ -26,6 +26,7 @@ button:active {
 }
 
 .flex-item {
+    margin: 10px;
     padding: 10px;
 }
 
@@ -77,6 +78,11 @@ button:active {
     padding-inline: 30px;
 }
 
+#ui-text h2 {
+    padding: 10px;
+    font-size: 120%;
+}
+
 ul {
     flex-flow: column;
     justify-content: flex-start;
@@ -94,14 +100,15 @@ li {
     margin: 0 30px 10px 0;
 }
 
-li.correct {
-    color: green;
-    content: "";
+li:hover {
+    background-color: mediumblue;
+    color: antiquewhite;
 }
 
-li.wrong {
-    color: red;
-    content: "";
+form {
+    visibility: hidden;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 #ui-button {
