@@ -66,28 +66,26 @@ let displayScore = document.querySelector(".view-score");
 
 // quiz
 function codeQuiz () {
-    // timer
-    let timeEl = document.querySelector(".timer");
-    let secondsLeft = 90;
+    displayScore.style.display = "none";
+    startButton.style.visibility = "hidden";
 
-    function countDown() {
-        let timeInterval = setInterval(function() {
-            secondsLeft--;
-            timeEl.textContent = `${secondsLeft} seconds left`;
-
-            if ((secondsLeft === 0) || (i === questionBank.length)) {
-                clearInterval(timeInterval);
-                timeEl.textContent = "TIME'S UP!";
-            }
-        }, 1000);
-    }
-    
-
-    // quiz logic
     let questionsCorrect = 0;
     let i = 0
-    countDown();
-    startButton.style.visibility = "hidden";
+
+    // timer
+    let timeEl = document.querySelector(".timer");
+    let secondsLeft = 50;
+
+    let timeInterval = setInterval(function() {
+        secondsLeft--;
+        timeEl.textContent = `${secondsLeft} seconds left`;
+
+        if ((secondsLeft <= 0) || (i === questionBank.length)) {
+            clearInterval(timeInterval);
+            timeEl.textContent = "TIME'S UP!";
+            codeEndScreen()
+        }
+    }, 1000);
 
     function populateQuestion() {
         questionText.textContent = questionBank[i].text
@@ -95,7 +93,6 @@ function codeQuiz () {
         qChoice2.textContent = questionBank[i].choice2
         qChoice3.textContent = questionBank[i].choice3
         qChoice4.textContent = questionBank[i].choice4
-
     }
 
     populateQuestion();
@@ -105,7 +102,7 @@ function codeQuiz () {
     }
 
     function codeEndScreen() {
-        if (i === questionBank.length) {
+        if ((secondsLeft <= 0) || (i === questionBank.length)) {
             for (let x = 0; x < questionChoices.length; x++) {
                 questionChoices[x].style.display = "none";
             }
@@ -121,7 +118,6 @@ function codeQuiz () {
 
     questionChoicesBody.addEventListener("click", function(event) {
         event.stopPropagation();
-        console.log(event.target)
         if (event.target.textContent === questionBank[i].correctAnswer) {
             questionsCorrect++
             if (i < (questionBank.length - 1)) {
@@ -136,6 +132,7 @@ function codeQuiz () {
 
         else {
             secondsLeft = secondsLeft - 10;
+
             if (i < (questionBank.length - 1)) {
                 i++
                 populateQuestion();
@@ -171,7 +168,6 @@ function highScorePage () {
 
     lastHighScore = JSON.parse(localStorage.getItem("highScoreList"))
 
-    // scoreEl = document.createElement("")
     questionText.innerHTML = `<b>Last time:</b> ${lastHighScore.initials} got ${lastHighScore.answerRatio} with ${lastHighScore.timeLeft} seconds left.`
 }
 

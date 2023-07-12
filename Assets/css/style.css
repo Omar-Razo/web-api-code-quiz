@@ -31,7 +31,7 @@ button:active {
 }
 
 .top-bar {
-    flex-flow: row;
+    flex-flow: row wrap;
     justify-content: space-between;
     background-image: url(../imgs/Notebook_Paper_Piece_3.png);
     background-position: center;
@@ -45,6 +45,7 @@ button:active {
 .timer {
     font-size: 120%;
     font-weight: 700;
+    margin: 0 auto;
 }
 
 .ui-content {
