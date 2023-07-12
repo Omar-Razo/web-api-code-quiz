@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./Assets/css/reset.css" />
+    <link rel="stylesheet" href="./Assets/css/style.css" />
+    <script src="./assets/js/script.js" defer></script>
+    <title>Bootcamp Coding Quiz</title>
+</head>
+
+<body>
+    <header class="flex-container top-bar">
+        <div class="flex-item">
+            <button class="view-score">View High Scores</button>
+        </div>
+        <div class="flex-item timer"></div>
+    </header>
+
+    <main class="flex-container ui-content">
+        <div class="flex-item ui-head">
+            <h2>Coding Quiz Challenge</h2>
+        </div>
+
+        <div class="flex-container flex-item ui-body">
+            <p class="flex-item" id="ui-text">Test your developer know-how by taking our quiz. Incorrect answers deduct time from the timer. Record your scoretime and view it and your friends' scores anytime.</p>
+            <ul class="flex-container flex-item" id="ui-choices">
+                <li id="qChoice1"></li>
+                <li id="qChoice2"></li>
+                <li id="qChoice3"></li>
+                <li id="qChoice4"></li>
+            </ul>
+            <button class="flex-item" id="ui-button">Start?</button>
+        </div>
+    </main>
+</body>
+</html>

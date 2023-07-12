@@ -1,0 +1,108 @@
+
+body {
+    background-color: rgb(18, 17, 17);
+    color: mediumblue;
+    font-family: cursive, sans-serif;
+    font-size: 120%;
+}
+
+button {
+    background-color: mediumblue;
+    color: antiquewhite;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 4px 4px rgb(98, 96, 96);
+    transition: box-shadow 0.2s;
+}
+
+button:active {
+    box-shadow: 0 0 5px 5px dimgray inset;
+    color: dimgray;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-item {
+    padding: 10px;
+}
+
+.top-bar {
+    flex-flow: row;
+    justify-content: space-between;
+    background-image: url(../imgs/Notebook_Paper_Piece_3.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: antiquewhite;
+    margin: 10px;
+    padding: 20px;
+}
+
+.timer {
+    font-size: 120%;
+    font-weight: 700;
+}
+
+.ui-content {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.ui-head, .ui-body {
+    flex:  1 auto;
+    background-image: url(../imgs/Notebook_Paper_Piece_3.png);
+    background-attachment: local;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 95%;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.ui-head > h2 {
+    text-align: center;
+}
+.ui-body {
+    flex-flow: column;
+}
+
+#ui-text {
+    text-align: center;
+    padding-inline: 30px;
+}
+
+ul {
+    flex-flow: column;
+    justify-content: flex-start;
+    margin-left: 10%;
+}
+
+li {
+    visibility: hidden;
+    flex: 0 1 auto;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 4px 4px dimgray;
+    padding: 10px;
+    margin: 0 30px 10px 0;
+}
+
+li::after.correct {
+    color: green;
+}
+
+li::after.wrong {
+    color: red;
+}
+
+#ui-button {
+    flex: 0 1 auto;
+    margin-inline: auto;
+}
