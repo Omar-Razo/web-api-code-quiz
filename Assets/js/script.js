@@ -1,17 +1,3 @@
-// display highscores
-let highScoreList = localStorage.getItem("highScoreList");
-let displayScore = document.querySelector(".view-score");
-
-
-
-// clicking highscore button
-displayScore.addEventListener("click", highScorePage);
-
-function highScorePage () {
-
-}
-
-
 // Questions bank
 let question1 = {
     text: "What is Git interested in tracking?",
@@ -67,51 +53,86 @@ let secondsLeft = 90;
 function countDown() {
     let timeInterval = setInterval(function() {
         secondsLeft--;
-        timeEl.innerHTML = `${secondsLeft} seconds left`;
+        timeEl.textContent = `${secondsLeft} seconds left`;
 
         if (secondsLeft === 0) {
             clearInterval(timeInterval);
-            timeEl.innerHTML = "OUT OF TIME";
+            timeEl.textContent = "OUT OF TIME";
         }
     }, 1000);
 }
 
-
 // start quiz
 let startButton = document.querySelector("#ui-button");
 let questionText = document.querySelector("#ui-text");
-let questionChoices = document.querySelector("#ui-choices");
+let questionChoicesBody = document.querySelector("ul")
+let questionChoices = document.querySelectorAll(".ui-choices");
 let qChoice1 = document.querySelector("#qChoice1");
 let qChoice2 = document.querySelector("#qChoice2");
-let qChoice3 = document.querySelector("#qChoce3");
-let qChoice4 = document.querySelector("#qChoce4");
+let qChoice3 = document.querySelector("#qChoice3");
+let qChoice4 = document.querySelector("#qChoice4");
 
 function codeQuiz () {
     countDown();
     let questionsCorrect = 0;
-    
+    let i = 0
     startButton.style.visibility = "hidden";
 
-    while ((secondsLeft !== 0) && (i < questionBank.length)) {
-        let i = 0;
-        questionText.innerHTML = questionBank[i].text
-        qChoice1 = questionBank[i].choice1
-        qChoice2 = questionBank[i].choice2
-        qChoice3 = questionBank[i].choice3
-        qChoice4 = questionBank[i].choice4
-
-        questionChoices.children.style.visibility = "visible";
-
-
-    }
-    
-
-    if (event.currentTarget === questionBank[i].correctAnswer) {
-
+    function populateQuestion() {
+        questionText.textContent = questionBank[i].text
+        qChoice1.textContent = questionBank[i].choice1
+        qChoice2.textContent = questionBank[i].choice2
+        qChoice3.textContent = questionBank[i].choice3
+        qChoice4.textContent = questionBank[i].choice4
     }
 
+    populateQuestion();
+
+    for (let x = 0; x < questionChoices.length; x++) {
+        questionChoices[x].style.display = "list-item";
+    }
+
+    questionChoicesBody.addEventListener("click", function(event) {
+        event.stopPropagation();
+        console.log(event.target)
+        if (event.target.textContent === questionBank[i].correctAnswer) {
+            // event.target.classList.add("correct");
+            // event.target.textContent = "CORRECT!";
+            questionsCorrect++
+            i++
+            populateQuestion();
+        } 
+        else {
+            // event.target.classList.add("wrong");
+            // event.target.textContent = "Wrong!";
+            secondsLeft = secondsLeft - 10;
+            i++
+            populateQuestion();
+        }
+    });
+
+    if (i === questionBank.length) {
+        for (let x = 0; x < questionChoices.length; x++) {
+            questionChoices[x].style.display = "none";
+        }
+        // create heading and append to p
+        questionText.textContent = "ALL DONE!"
+
+    }
 }
-
 
 // eventlistener for quiz
 startButton.addEventListener("click", codeQuiz);
+
+// display highscores
+let highScoreList = localStorage.getItem("highScoreList");
+let displayScore = document.querySelector(".view-score");
+
+
+
+// clicking highscore button
+displayScore.addEventListener("click", highScorePage);
+
+function highScorePage () {
+
+}

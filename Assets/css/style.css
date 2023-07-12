@@ -84,7 +84,7 @@ ul {
 }
 
 li {
-    visibility: hidden;
+    display: none;
     flex: 0 1 auto;
     background-color: antiquewhite;
     border-radius: 10px;
@@ -94,12 +94,14 @@ li {
     margin: 0 30px 10px 0;
 }
 
-li::after.correct {
+li.correct {
     color: green;
+    content: "";
 }
 
-li::after.wrong {
+li.wrong {
     color: red;
+    content: "";
 }
 
 #ui-button {
