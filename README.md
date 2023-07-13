@@ -32,9 +32,7 @@ THEN I can save my initials and my score
 ```
 ## Mock-Up
 The following is a preview of the final product:
-
-
-
+![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./Assets/imgs/codeQuizPic.PNG)
 
 The latest version of the webpage is active at:
 https://omar-razo.github.io/web-api-code-quiz/
@@ -50,10 +48,13 @@ N/A
 
 ## Credits
 Dev.To DOM manipulation Cheatsheet:
+
 https://dev.to/codewithtee/javascript-dom-manipulation-cheatsheet-2d18
 
 I had trouble setting up the target for some of the event listeners. This SoftAuthor article was visted:
+
 https://softauthor.com/e-target-in-javascript/#get-clicked-child-element-using-e-target
 
 LogRocket was visted to get clarifications on localStorage:
+
 https://blog.logrocket.com/localstorage-javascript-complete-guide/#how-does-localstorage-work
